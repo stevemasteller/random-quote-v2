@@ -1,3 +1,16 @@
+/***********************************************************
+*
+*   Random Quote 
+*
+*  Generates a random quote every time the button is clicked 
+*  or when it times out. The quotes do not repeat until all 
+*  quotes have been displayed.
+*
+*  Author: Steve Masteller
+*  Email: stevermasteller@gmail.com
+***********************************************************/ 
+
+
 const TIMEOUT_IN_SECONDS = 5;
 var timeout;					// holds timeout counter
 var remainingQuotes = []; 		// remaingQuotes set in getRandomQuote
@@ -55,7 +68,7 @@ function getRandomQuote() {
 	
 	randomIndex = getRandomNumber(remainingQuotes.length );
 	quote = remainingQuotes[randomIndex];
-	remainingQuotes.splice(randomIndex, 1)
+	remainingQuotes.splice(randomIndex, 1) // remove quote from array
 	return quote;
 }
 
