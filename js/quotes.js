@@ -23,7 +23,7 @@ quotes = [
 		quote: "Example quote #3",
 		source: "Steve Masteller #3",
 		citation: "Example Citation #3",
-		tag: "Humor",
+		tag: "Wisdom",
 	},
 	{
 		quote: "Example quote #4",

@@ -14,8 +14,8 @@ function timeoutInit() {
     timeout = setTimeout('timeoutTrigger()', TIMEOUT_IN_SECONDS * 1000);
  }
 
- // Clear the timeout counter
- //		timeout is a global variable
+// Clear the timeout counter
+//		timeout is a global variable
 function timeoutClear() {
     clearTimeout(timeout);
 }
@@ -31,6 +31,15 @@ function getRandomNumber( upper ) {
 	return randomNumber;
 }
 
+// Randomly change the background color.
+function randomBackgroundColor() {
+	var color = 'rgb(';
+	color += getRandomNumber( 256 ) + ',';
+	color += getRandomNumber( 256 ) + ',';
+	color += getRandomNumber( 256 ) + ')';
+	document.body.style.background = color;
+}
+
 // Get a random quote object from global quotes array
 function getRandomQuote() {
 	var randomIndex = getRandomNumber( quotes.length );
@@ -41,6 +50,7 @@ function getRandomQuote() {
 // Construct HTML string from quote object
 //		Skip citation if it doesn't exist
 // 		Skip year if it doesn't exist
+// Change the background color
 // Call print 
 function printQuote() {
 	var quote = getRandomQuote();
@@ -56,6 +66,8 @@ function printQuote() {
 	}
 	
 	html += '<p class="tag">' + quote.tag + '</p>';
+	
+	randomBackgroundColor();
 	print( 'quote-box', html );
 }
 
@@ -69,6 +81,7 @@ document.getElementById('loadQuote').addEventListener("click",
 		timeoutInit();
 	}, false);
 	
-// Initialize the timeout counter on page load
+// Initialize on page load
+printQuote();
 timeoutInit();
 
