@@ -1,3 +1,25 @@
+const TIMEOUT_IN_SECONDS = 3;
+var timeout;	// holds timeout counter
+
+// When timeout triggers
+//		print a new quote to the screen
+//		restart the timeout counter
+function timeoutTrigger() {
+    printQuote();
+	timeoutInit();
+}
+
+// Start the timeout counter
+function timeoutInit() {
+    timeout = setTimeout('timeoutTrigger()', TIMEOUT_IN_SECONDS * 1000);
+ }
+
+ // Clear the timeout counter
+ //		timeout is a global variable
+function timeoutClear() {
+    clearTimeout(timeout);
+}
+
 // Print some HTML to the screen at id
 function print( id, html ) {
 	document.getElementById(id).innerHTML = html;
@@ -9,19 +31,19 @@ function getRandomNumber( upper ) {
 	return randomNumber;
 }
 
-// Get a random quote object from quotes array
-function getRandomQuote( quotes ) {
+// Get a random quote object from global quotes array
+function getRandomQuote() {
 	var randomIndex = getRandomNumber( quotes.length );
 	return quotes[randomIndex];
 }
 
 // Call getRandomQuote
 // Construct HTML string from quote object
-// 		Skip citation if it doesn't exist
-//		Skip year if it doesn't exist
+//		Skip citation if it doesn't exist
+// 		Skip year if it doesn't exist
 // Call print 
-function printQuote( quotes ) {
-	var quote = getRandomQuote( quotes );
+function printQuote() {
+	var quote = getRandomQuote();
 	var html  = ' <p class="quote">' + quote.quote +
 				'</p> <p class="source">' + quote.source;
 	
@@ -38,6 +60,15 @@ function printQuote( quotes ) {
 }
 
 // event listener to respond to "Show another quote" button clicks
-// when user clicks anywhere on the button, the "printQuote" function is called
-document.getElementById('loadQuote').addEventListener("click", function() {printQuote( quotes )}, false);
+// when user clicks anywhere on the button, 
+// 		call printQuote  -- prints new quote
+document.getElementById('loadQuote').addEventListener("click", 
+	function() {
+		printQuote();
+		timeoutClear();
+		timeoutInit();
+	}, false);
+	
+	// Initialize the timeout counter on page load
+	timeoutInit();
 
