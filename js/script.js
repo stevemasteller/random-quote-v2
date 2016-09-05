@@ -52,10 +52,10 @@ function printQuote() {
 	}
 	
 	if ('year' in quote) {
-		html += '<span class="year">' + quote.year + '</span>';
+		html += '<span class="year">' + quote.year + '</span></p>';
 	}
 	
-	html += '</p>';
+	html += '<p class="tag">' + quote.tag + '</p>';
 	print( 'quote-box', html );
 }
 
@@ -69,6 +69,6 @@ document.getElementById('loadQuote').addEventListener("click",
 		timeoutInit();
 	}, false);
 	
-	// Initialize the timeout counter on page load
-	timeoutInit();
+// Initialize the timeout counter on page load
+timeoutInit();
 
