@@ -1,4 +1,4 @@
-quotes = [
+var originalQuotes = [
 	{
 		quote: "Example quote #0",
 		source: "Steve Masteller #0",

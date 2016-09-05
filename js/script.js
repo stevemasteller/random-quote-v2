@@ -1,5 +1,6 @@
-const TIMEOUT_IN_SECONDS = 3;
-var timeout;	// holds timeout counter
+const TIMEOUT_IN_SECONDS = 5;
+var timeout;					// holds timeout counter
+var remainingQuotes = []; 		// remaingQuotes set in getRandomQuote
 
 // When timeout triggers
 //		print a new quote to the screen
@@ -26,6 +27,7 @@ function print( id, html ) {
 }
 
 // Get a random number from 0 to upper - 1
+//		if upper is 0 returns 0
 function getRandomNumber( upper ) {
 	var randomNumber = Math.floor( Math.random() * upper ); 
 	return randomNumber;
@@ -40,10 +42,21 @@ function randomBackgroundColor() {
 	document.body.style.background = color;
 }
 
-// Get a random quote object from global quotes array
+// Get and remove a random quote object from global remainingQuotes array
+// 		if the array is empty reload it from global originalQuotes array
 function getRandomQuote() {
-	var randomIndex = getRandomNumber( quotes.length );
-	return quotes[randomIndex];
+	var randomIndex;
+	var quote;
+	
+	if (typeof remainingQuotes[0] === 'undefined') {
+		//alert('Reload the remainingQuotes array');
+		remainingQuotes = originalQuotes.slice(0);
+	} 
+	
+	randomIndex = getRandomNumber(remainingQuotes.length );
+	quote = remainingQuotes[randomIndex];
+	remainingQuotes.splice(randomIndex, 1)
+	return quote;
 }
 
 // Call getRandomQuote
