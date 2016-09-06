@@ -13,7 +13,8 @@
 
 const TIMEOUT_IN_SECONDS = 5;
 var timeout;					// holds timeout counter
-var remainingQuotes = []; 		// remaingQuotes set in getRandomQuote
+var remainingQuoteKeys = []; 	// remaingQuoteKeys set in getRandomQuote
+//var originalQuotes;			// originalQuotes array set in quotes.js file
 
 // When timeout triggers
 //		print a new quote to the screen
@@ -55,20 +56,22 @@ function randomBackgroundColor() {
 	document.body.style.background = color;
 }
 
-// Get and remove a random quote object from global remainingQuotes array
-// 		if the array is empty reload it from global originalQuotes array
+// Get and remove a random key from global remainingQuoteKeys array
+// Use the random key to select a quote from global originalQuotes array
+// 		if the key array is empty reload it
 function getRandomQuote() {
 	var randomIndex;
 	var quote;
 	
-	if (typeof remainingQuotes[0] === 'undefined') {
-		//alert('Reload the remainingQuotes array');
-		remainingQuotes = originalQuotes.slice(0);
+	if (typeof remainingQuoteKeys[0] === 'undefined') {	  // if all keys removed from array
+		//alert('Reload the remainingQuoteKeys array');
+		remainingQuoteKeys = Object.keys(originalQuotes); 
 	} 
 	
-	randomIndex = getRandomNumber(remainingQuotes.length );
-	quote = remainingQuotes[randomIndex];
-	remainingQuotes.splice(randomIndex, 1) // remove quote from array
+	randomIndex = getRandomNumber(remainingQuoteKeys.length ); 	// pick a key at random
+	quote = originalQuotes[remainingQuoteKeys[randomIndex]];   	// use key to select quote
+	remainingQuoteKeys.splice(randomIndex, 1) 					// remove used key from array
+	//alert('remainingQuoteKeys: ' + remainingQuoteKeys.join());
 	return quote;
 }
 
@@ -100,6 +103,7 @@ function printQuote() {
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, 
 // 		call printQuote  -- prints new quote
+//		restart timer
 document.getElementById('loadQuote').addEventListener("click", 
 	function() {
 		printQuote();
